@@ -13,4 +13,4 @@ COPY healthcheck /usr/bin/healthcheck
 RUN chmod +x /usr/bin/healthcheck
 
 RUN export DOMAINS=$DOMAINS
-CMD ["/bin/bash", "/root/certs-extraction.sh"]
+CMD ["/bin/bash", "/root/certs-extraction_itsltn.sh"]
