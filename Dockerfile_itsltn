@@ -8,7 +8,7 @@ VOLUME /mnt/data
 
 COPY certs-extraction_itsltn.sh /root/certs-extraction.sh
 COPY healthcheck /usr/bin/healthcheck
-RUN chmod +x /usr/bin/healthcheck
-RUN chmod +x /root/certs-extraction.sh
+RUN chmod a+x /usr/bin/healthcheck
+RUN chmod a+x /root/certs-extraction.sh
 
 CMD ["/bin/bash", "/root/certs-extraction.sh"]
