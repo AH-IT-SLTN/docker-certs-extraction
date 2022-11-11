@@ -8,6 +8,7 @@ mkdir -p /app/certs-extraction
 
 WORKDIR /app/certs-extraction
 VOLUME /mnt/data
+VOLUME /mnt/certs-to-copy
 
 COPY certs-extraction_itsltn.sh /app/certs-extraction/certs-extraction.sh
 COPY healthcheck /usr/bin/healthcheck
