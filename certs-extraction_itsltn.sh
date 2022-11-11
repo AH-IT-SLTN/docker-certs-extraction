@@ -76,14 +76,14 @@ while true; do
         openssl x509 -in $CERTS/ssl-cert.crt -outform pem -out $CERTS/ssl-cert.pem
 
         echo "[ CERTS ] Exporting Key and Certificate into PFX"
-        openssl pkcs12 -inkey $CERTS/ssl-cert.key -in $CERTS/ssl-cert.crt -password pass: -export -out $CERTS/ssl-cert.pfx
+        openssl pkcs12 -inkey $CERTS/ssl-cert.key -in $CERTS/ssl-cert.crt -password pass:$EXPORTPW -export -out $CERTS/ssl-cert.pfx
 
         echo "[ CERTS ] Exporting Key and Certificate like neilpang/acme.sh"
         mkdir -p $ACME
         cp $CERTS/ssl-cert.pfx $ACME/$DOMAIN.pfx
-        openssl pkcs12 -in $CERTS/ssl-cert.pfx -nocerts -nodes -password pass: | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > $ACME/$DOMAIN.key
-        openssl pkcs12 -in $CERTS/ssl-cert.pfx -clcerts -nokeys -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/$DOMAIN.cer
-        openssl pkcs12 -in $CERTS/ssl-cert.pfx -cacerts -nokeys -chain -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/ca.cer
+        openssl pkcs12 -in $CERTS/ssl-cert.pfx -nocerts -nodes -password pass:$EXPORTPW | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > $ACME/$DOMAIN.key
+        openssl pkcs12 -in $CERTS/ssl-cert.pfx -clcerts -nokeys -password pass:$EXPORTPW | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/$DOMAIN.cer
+        openssl pkcs12 -in $CERTS/ssl-cert.pfx -cacerts -nokeys -chain -password pass:$EXPORTPW | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/ca.cer
         cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/fullchain.cer
 
         if [ -n "$ACME_COPY" ]; then
