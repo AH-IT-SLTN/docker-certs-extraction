@@ -14,4 +14,4 @@ COPY healthcheck /usr/bin/healthcheck
 RUN chmod a+x /usr/bin/healthcheck
 RUN chmod a+x /app/certs-extraction/certs-extraction.sh
 
-CMD ["/bin/bash", "/root/certs-extraction.sh"]
+CMD ["/bin/bash", "/app/certs-extraction/certs-extraction.sh"]
