@@ -9,8 +9,9 @@
 
 START_LOG=1
 START_INIT=1
+SOURCE=/app/source
 CERTS_PATH=${CERTS_PATH:-/app/working}
-ACME_JSON=$CERTS_PATH/acme.json
+ACME_JSON=$SOURCE/acme.json
 CERTS=$CERTS_PATH/certs
 ACME=$CERTS_PATH/acme
 ACME_JSON_MD5=$(md5sum $ACME_JSON | awk '{print $1}')

@@ -7,6 +7,7 @@ RUN \
 mkdir -p /app/{certs-extraction,working,export}
 
 WORKDIR /app/certs-extraction
+VOLUME /app/source
 VOLUME /app/working
 VOLUME /app/export
 
