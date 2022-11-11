@@ -3,12 +3,15 @@ FROM alpine:latest
 RUN apk --no-cache --update add bash tzdata openssl jq
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /root
+RUN \
+mkdirp -p /app/certs-extraction
+
+WORKDIR /app/certs-extraction
 VOLUME /mnt/data
 
-COPY certs-extraction_itsltn.sh /root/certs-extraction.sh
+COPY certs-extraction_itsltn.sh /app/certs-extraction/certs-extraction.sh
 COPY healthcheck /usr/bin/healthcheck
 RUN chmod a+x /usr/bin/healthcheck
-RUN chmod a+x /root/certs-extraction.sh
+RUN chmod a+x /app/certs-extraction/certs-extraction.sh
 
 CMD ["/bin/bash", "/root/certs-extraction.sh"]
