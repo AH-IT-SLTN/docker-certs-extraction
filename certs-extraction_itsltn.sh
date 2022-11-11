@@ -9,7 +9,7 @@
 
 START_LOG=1
 START_INIT=1
-CERTS_PATH=${CERTS_PATH:-/mnt/data}
+CERTS_PATH=${CERTS_PATH:-/app/working}
 ACME_JSON=$CERTS_PATH/acme.json
 CERTS=$CERTS_PATH/certs
 ACME=$CERTS_PATH/acme
@@ -85,7 +85,6 @@ while true; do
         cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/fullchain.cer
 
         if [ -n "$ACME_COPY" ]; then
-          mkdir -p $ACME_COPY
           # Set pipe as the delimiter
           IFS='|'
           #Read the split words into an array based on space delimiter
