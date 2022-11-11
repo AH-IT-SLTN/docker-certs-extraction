@@ -79,6 +79,7 @@ while true; do
 
         echo "[ CERTS ] Exporting Key and Certificate like neilpang/acme.sh"
         mkdir -p $ACME
+        cp $CERTS/ssl-cert.pfx $ACME/$DOMAIN.pfx
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -nocerts -nodes -password pass: | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > $ACME/$DOMAIN.key
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -clcerts -nokeys -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/$DOMAIN.cer
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -cacerts -nokeys -chain -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/ca.cer

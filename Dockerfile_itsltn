@@ -4,7 +4,7 @@ RUN apk --no-cache --update add bash tzdata openssl jq
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN \
-mkdir -p /app/certs-extraction
+mkdir -p /app/{certs-extraction,working,export}
 
 WORKDIR /app/certs-extraction
 VOLUME /app/working
