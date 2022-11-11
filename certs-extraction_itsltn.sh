@@ -85,6 +85,7 @@ while true; do
         cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/fullchain.cer
 
         if [ -n "$ACME_COPY" ]; then
+          mkdir -p $ACME_COPY
           # Set pipe as the delimiter
           IFS='|'
           #Read the split words into an array based on space delimiter
