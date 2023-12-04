@@ -82,7 +82,7 @@ while true; do
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -nocerts -nodes -password pass: | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > $ACME/$DOMAIN.key
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -clcerts -nokeys -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/$DOMAIN.cer
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -cacerts -nokeys -chain -password pass: | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/ca.cer
-        cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/fullchain.cer
+        cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/$Domain.fullchain.cer
 
         if [ -n "$ACME_COPY" ]; then
           # Set pipe as the delimiter
