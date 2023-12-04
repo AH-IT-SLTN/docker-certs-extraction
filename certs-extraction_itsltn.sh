@@ -80,11 +80,13 @@ while true; do
 
         echo "[ CERTS ] Exporting Key and Certificate like neilpang/acme.sh"
         mkdir -p $ACME
+        mkdir -p $ACME_COPY
         cp $CERTS/ssl-cert.pfx $ACME/$DOMAIN.pfx
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -nocerts -nodes -password pass:$EXPORTPW | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > $ACME/$DOMAIN.key
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -clcerts -nokeys -password pass:$EXPORTPW | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/$DOMAIN.cer
         openssl pkcs12 -in $CERTS/ssl-cert.pfx -cacerts -nokeys -chain -password pass:$EXPORTPW | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > $ACME/ca.cer
         cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME/fullchain.cer
+        cat $ACME/$DOMAIN.cer > $ACME/fullchain.cer && echo "" >> $ACME/fullchain.cer && cat $ACME/ca.cer >> $ACME_COPY/$DOMAIN.fullchain.cer
 
         if [ -n "$ACME_COPY" ]; then
           # Set pipe as the delimiter
